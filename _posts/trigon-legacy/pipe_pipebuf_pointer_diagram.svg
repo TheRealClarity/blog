@@ -1,0 +1,137 @@
+<svg width="100%" viewBox="0 0 680 420" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>pipe 1 pipebuf buffer pointing to pipe 2</title>
+  <desc>Structural diagram showing pipe 1's pipebuf.buffer field pointing to the base address of pipe 2</desc>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style>
+      :root {
+        --bg:           rgb(245, 244, 237);
+        --bg-stroke:    rgba(31, 30, 29, 0.3);
+        --title-fill:   rgb(20, 20, 19);
+        --sub-fill:     rgb(61, 61, 58);
+        --field-green:  rgb(225, 245, 238);
+        --field-green-stroke: rgb(15, 110, 86);
+        --field-orange: rgb(250, 238, 218);
+        --field-orange-stroke: rgb(133, 79, 11);
+        --field-purple: rgb(238, 237, 254);
+        --field-purple-stroke: rgb(83, 74, 183);
+        --arrow-purple: rgb(127, 119, 221);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg:           rgb(35, 34, 42);
+          --bg-stroke:    rgba(200, 198, 190, 0.25);
+          --title-fill:   rgb(230, 229, 224);
+          --sub-fill:     rgb(180, 178, 170);
+          --field-green:  rgb(20, 55, 42);
+          --field-green-stroke: rgb(40, 160, 110);
+          --field-orange: rgb(55, 38, 12);
+          --field-orange-stroke: rgb(200, 130, 50);
+          --field-purple: rgb(38, 35, 72);
+          --field-purple-stroke: rgb(140, 130, 230);
+          --arrow-purple: rgb(160, 152, 240);
+        }
+      }
+
+      .title-text   { font-family: -apple-system, "system-ui", "Segoe UI", sans-serif; font-size: 14px; font-weight: 500; fill: var(--title-fill); }
+      .sub-text     { font-family: -apple-system, "system-ui", "Segoe UI", sans-serif; font-size: 12px; font-weight: 400; fill: var(--sub-fill); }
+      .label-text   { font-family: -apple-system, "system-ui", "Segoe UI", sans-serif; font-size: 12px; font-weight: 400; fill: var(--sub-fill); opacity: 0.55; }
+      .fade-text    { font-family: -apple-system, "system-ui", "Segoe UI", sans-serif; font-size: 12px; font-weight: 400; fill: var(--sub-fill); opacity: 0.5; }
+      .mono-text    { font-family: monospace; font-size: 12px; font-weight: 400; fill: var(--sub-fill); }
+      .field-name   { font-family: -apple-system, "system-ui", "Segoe UI", sans-serif; font-size: 14px; font-weight: 500; fill: var(--title-fill); }
+
+      .box-outer    { fill: var(--bg); stroke: var(--bg-stroke); stroke-width: 0.5px; }
+      .box-green    { fill: var(--field-green); stroke: var(--field-green-stroke); stroke-width: 0.5px; }
+      .box-orange   { fill: var(--field-orange); stroke: var(--field-orange-stroke); stroke-width: 0.5px; }
+      .box-purple   { fill: var(--field-purple); stroke: var(--field-purple-stroke); stroke-width: 1px; }
+      .box-fade     { fill: var(--bg); stroke: var(--bg-stroke); stroke-width: 0.5px; opacity: 0.5; }
+
+      .ptr-arrow    { fill: none; stroke: var(--arrow-purple); stroke-width: 1.5px; stroke-dasharray: 6px 3px; }
+    </style>
+  </defs>
+
+  <!-- pipe[2] label -->
+  <text x="160" y="38" text-anchor="middle" class="title-text">pipe 2</text>
+  <text x="160" y="56" text-anchor="middle" class="sub-text" opacity="0.6">@ pipe2_addr</text>
+
+  <!-- pipe[2] outer box -->
+  <rect x="40" y="68" width="240" height="330" rx="10" class="box-outer"/>
+
+  <!-- pipe[2] pipebuf label -->
+  <text x="52" y="90" class="label-text">pipe buffer  (pipebuf)</text>
+
+  <!-- cnt -->
+  <rect x="52" y="98" width="216" height="40" rx="4" class="box-green"/>
+  <text x="96" y="118" dominant-baseline="central" class="field-name">cnt</text>
+  <text x="245" y="118" dominant-baseline="central" text-anchor="end" class="sub-text">u_int</text>
+
+  <!-- in -->
+  <rect x="52" y="142" width="216" height="40" rx="4" class="box-green"/>
+  <text x="96" y="162" dominant-baseline="central" class="field-name">in</text>
+  <text x="245" y="162" dominant-baseline="central" text-anchor="end" class="sub-text">u_int</text>
+
+  <!-- out -->
+  <rect x="52" y="186" width="216" height="40" rx="4" class="box-green"/>
+  <text x="96" y="206" dominant-baseline="central" class="field-name">out</text>
+  <text x="245" y="206" dominant-baseline="central" text-anchor="end" class="sub-text">u_int</text>
+
+  <!-- size -->
+  <rect x="52" y="230" width="216" height="40" rx="4" class="box-green"/>
+  <text x="96" y="250" dominant-baseline="central" class="field-name">size</text>
+  <text x="245" y="250" dominant-baseline="central" text-anchor="end" class="sub-text">u_int</text>
+
+  <!-- buffer (pipe[2]) -->
+  <rect x="52" y="274" width="216" height="40" rx="4" class="box-orange"/>
+  <text x="96" y="294" dominant-baseline="central" class="field-name">buffer</text>
+  <text x="245" y="294" dominant-baseline="central" text-anchor="end" class="sub-text">caddr_t</text>
+
+  <!-- rest of struct (pipe[2]) -->
+  <rect x="52" y="324" width="216" height="60" rx="4" class="box-fade"/>
+  <text x="160" y="358" text-anchor="middle" class="fade-text">… (rest of struct)</text>
+
+  <!-- pipe[1] label -->
+  <text x="520" y="38" text-anchor="middle" class="title-text">pipe 1</text>
+  <text x="520" y="56" text-anchor="middle" class="sub-text" opacity="0.6">@ pipe1_addr</text>
+
+  <!-- pipe[1] outer box -->
+  <rect x="400" y="68" width="240" height="330" rx="10" class="box-outer"/>
+
+  <!-- pipe[1] pipebuf label -->
+  <text x="412" y="90" class="label-text">pipe buffer  (pipebuf)</text>
+
+  <!-- cnt -->
+  <rect x="412" y="98" width="216" height="40" rx="4" class="box-green"/>
+  <text x="456" y="118" dominant-baseline="central" class="field-name">cnt</text>
+  <text x="605" y="118" dominant-baseline="central" text-anchor="end" class="sub-text">u_int</text>
+
+  <!-- in -->
+  <rect x="412" y="142" width="216" height="40" rx="4" class="box-green"/>
+  <text x="456" y="162" dominant-baseline="central" class="field-name">in</text>
+  <text x="605" y="162" dominant-baseline="central" text-anchor="end" class="sub-text">u_int</text>
+
+  <!-- out -->
+  <rect x="412" y="186" width="216" height="40" rx="4" class="box-green"/>
+  <text x="456" y="206" dominant-baseline="central" class="field-name">out</text>
+  <text x="605" y="206" dominant-baseline="central" text-anchor="end" class="sub-text">u_int</text>
+
+  <!-- size -->
+  <rect x="412" y="230" width="216" height="40" rx="4" class="box-green"/>
+  <text x="456" y="250" dominant-baseline="central" class="field-name">size</text>
+  <text x="605" y="250" dominant-baseline="central" text-anchor="end" class="sub-text">u_int</text>
+
+  <!-- buffer (pipe[1]) — highlighted purple, pointer source -->
+  <rect x="412" y="274" width="216" height="40" rx="4" class="box-purple"/>
+  <text x="456" y="294" dominant-baseline="central" class="field-name">buffer</text>
+  <text x="590" y="294" dominant-baseline="central" text-anchor="end" class="mono-text">pipe2_addr</text>
+
+  <!-- rest of struct (pipe[1]) -->
+  <rect x="412" y="324" width="216" height="60" rx="4" class="box-fade"/>
+  <text x="520" y="358" text-anchor="middle" class="fade-text">… (rest of struct)</text>
+
+  <!-- pointer arrow: pipe[1].buffer → pipe[2].cnt -->
+  <path d="M412 294 L355 294 L355 118 L268 118" class="ptr-arrow" marker-end="url(#arrow)"/>
+
+</svg>

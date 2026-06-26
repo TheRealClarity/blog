@@ -1,0 +1,58 @@
+<svg width="100%" viewBox="0 0 680 282" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>ipc_port to proc pointer chain</title>
+  <desc>Four separate struct boxes connected by pointer arrows: ipc_port to ipc_space to task to proc.</desc>
+  <defs>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#f97316" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#a855f7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- Box 1: ipc_port — orange -->
+  <g font-family="&quot;Anthropic Sans&quot;, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, sans-serif">
+    <rect x="30" y="30" width="180" height="80" rx="8" fill="#ffedd5" stroke="#fdba74" stroke-width="1"/>
+    <text x="120" y="48" text-anchor="middle" dominant-baseline="central" fill="#f97316" font-size="11">struct ipc_space*</text>
+    <text x="120" y="65" text-anchor="middle" dominant-baseline="central" fill="#c2410c" font-size="16" font-weight="600">ip_receiver</text>
+    <rect x="30" y="80" width="180" height="30" rx="0" fill="none" stroke="#fdba74" stroke-width="0.75"/>
+    <text x="120" y="95" text-anchor="middle" dominant-baseline="central" fill="#f97316" font-size="12" font-style="italic">struct ipc_port</text>
+  </g>
+
+  <!-- Arrow: ipc_port → ipc_space -->
+  <line x1="210" y1="95" x2="248" y2="95" stroke="#f97316" stroke-width="1.5" marker-end="url(#arrow-orange)"/>
+
+  <!-- Box 2: ipc_space — green -->
+  <g font-family="&quot;Anthropic Sans&quot;, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, sans-serif">
+    <rect x="250" y="30" width="170" height="80" rx="8" fill="#dcfce7" stroke="#86efac" stroke-width="1"/>
+    <text x="335" y="48" text-anchor="middle" dominant-baseline="central" fill="#22c55e" font-size="11">task_t</text>
+    <text x="335" y="65" text-anchor="middle" dominant-baseline="central" fill="#15803d" font-size="16" font-weight="600">is_task</text>
+    <rect x="250" y="80" width="170" height="30" rx="0" fill="none" stroke="#86efac" stroke-width="0.75"/>
+    <text x="335" y="95" text-anchor="middle" dominant-baseline="central" fill="#22c55e" font-size="12" font-style="italic">struct ipc_space</text>
+  </g>
+
+  <!-- Arrow: ipc_space → task -->
+  <line x1="420" y1="95" x2="458" y2="95" stroke="#22c55e" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+
+  <!-- Box 3: task — purple -->
+  <g font-family="&quot;Anthropic Sans&quot;, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, sans-serif">
+    <rect x="460" y="30" width="170" height="80" rx="8" fill="#f3e8ff" stroke="#d8b4fe" stroke-width="1"/>
+    <text x="545" y="48" text-anchor="middle" dominant-baseline="central" fill="#a855f7" font-size="11">void*</text>
+    <text x="545" y="65" text-anchor="middle" dominant-baseline="central" fill="#7e22ce" font-size="16" font-weight="600">bsd_info</text>
+    <rect x="460" y="80" width="170" height="30" rx="0" fill="none" stroke="#d8b4fe" stroke-width="0.75"/>
+    <text x="545" y="95" text-anchor="middle" dominant-baseline="central" fill="#a855f7" font-size="12" font-style="italic">struct task</text>
+  </g>
+
+  <!-- Arrow: task → proc (down and left) -->
+  <path d="M545 110 L545 160 L335 160 L335 210" fill="none" stroke="#a855f7" stroke-width="1.5" marker-end="url(#arrow-purple)"/>
+
+  <!-- Box 4: proc — red -->
+  <g font-family="&quot;Anthropic Sans&quot;, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, sans-serif">
+    <rect x="250" y="212" width="170" height="60" rx="8" fill="#fee2e2" stroke="#fca5a5" stroke-width="1"/>
+    <text x="335" y="245" text-anchor="middle" dominant-baseline="central" fill="#b91c1c" font-size="16" font-weight="600">struct proc</text>
+  </g>
+
+</svg>

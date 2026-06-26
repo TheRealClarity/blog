@@ -1,0 +1,104 @@
+<svg width="100%" viewBox="0 0 680 440" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Kernel Memory Map</title>
+  <desc>Kernel memory segments with start, end, and size columns</desc>
+
+  <style>
+    .col-header { font-family: "Anthropic Sans", -apple-system, "system-ui", "Segoe UI", sans-serif; font-size: 12px; font-weight: 500; fill: rgb(61,61,58); opacity: 0.5; }
+    .mono       { font-family: ui-monospace, monospace; font-size: 14px; fill: rgb(20,20,19); }
+    .divider    { stroke: rgba(31,30,29,0.3); }
+    .badge-purple { font-family: "Anthropic Sans", -apple-system, "system-ui", "Segoe UI", sans-serif; font-size: 14px; font-weight: 500; fill: rgb(60,52,137); }
+    .badge-green  { font-family: "Anthropic Sans", -apple-system, "system-ui", "Segoe UI", sans-serif; font-size: 14px; font-weight: 500; fill: rgb(8,80,65); }
+    .badge-blue   { font-family: "Anthropic Sans", -apple-system, "system-ui", "Segoe UI", sans-serif; font-size: 14px; font-weight: 500; fill: rgb(12,68,124); }
+    .badge-gray   { font-family: "Anthropic Sans", -apple-system, "system-ui", "Segoe UI", sans-serif; font-size: 14px; font-weight: 500; fill: rgb(68,68,65); }
+    .badge-orange { font-family: "Anthropic Sans", -apple-system, "system-ui", "Segoe UI", sans-serif; font-size: 14px; font-weight: 500; fill: rgb(99,56,6); }
+
+    @media (prefers-color-scheme: dark) {
+      .col-header   { fill: rgb(180,180,178); }
+      .mono         { fill: rgb(210,210,208); }
+      .divider      { stroke: rgba(200,200,200,0.25); }
+      .badge-purple { fill: rgb(170,160,255); }
+      .badge-green  { fill: rgb(80,200,160); }
+      .badge-blue   { fill: rgb(100,170,255); }
+      .badge-gray   { fill: rgb(180,180,175); }
+      .badge-orange { fill: rgb(255,185,80); }
+    }
+  </style>
+
+  <!-- Column headers -->
+  <text x="44"  y="22" class="col-header">SEGMENT</text>
+  <text x="248" y="22" class="col-header">START</text>
+  <text x="408" y="22" class="col-header">END</text>
+  <text x="558" y="22" class="col-header">SIZE</text>
+  <line x1="40" y1="30" x2="640" y2="30" class="divider" stroke-width="0.5" opacity="0.4"/>
+
+  <!-- Kernel-__TEXT -->
+  <g><rect x="40" y="38" width="180" height="32" rx="4" stroke-width="0.5" style="fill:rgb(238,237,254);stroke:rgb(83,74,183)"/></g>
+  <text x="52"  y="59" class="badge-purple">Kernel-__TEXT</text>
+  <text x="248" y="59" class="mono">0x800e02000</text>
+  <text x="408" y="59" class="mono">0x801296000</text>
+  <text x="558" y="59" class="mono">0x494000</text>
+  <line x1="40" y1="76" x2="640" y2="76" class="divider" stroke-width="0.5" opacity="0.2"/>
+
+  <!-- Kernel-__DATA -->
+  <g><rect x="40" y="84" width="180" height="32" rx="4" stroke-width="0.5" style="fill:rgb(238,237,254);stroke:rgb(83,74,183)"/></g>
+  <text x="52"  y="105" class="badge-purple">Kernel-__DATA</text>
+  <text x="248" y="105" class="mono">0x801296000</text>
+  <text x="408" y="105" class="mono">0x801350000</text>
+  <text x="558" y="105" class="mono">0xba000</text>
+  <line x1="40" y1="122" x2="640" y2="122" class="divider" stroke-width="0.5" opacity="0.2"/>
+
+  <!-- Kernel-__KLD -->
+  <g><rect x="40" y="130" width="180" height="32" rx="4" stroke-width="0.5" style="fill:rgb(225,245,238);stroke:rgb(15,110,86)"/></g>
+  <text x="52"  y="151" class="badge-green">Kernel-__KLD</text>
+  <text x="248" y="151" class="mono">0x801350000</text>
+  <text x="408" y="151" class="mono">0x801352000</text>
+  <text x="558" y="151" class="mono">0x2000</text>
+  <line x1="40" y1="168" x2="640" y2="168" class="divider" stroke-width="0.5" opacity="0.2"/>
+
+  <!-- Kernel-__LAST -->
+  <g><rect x="40" y="176" width="180" height="32" rx="4" stroke-width="0.5" style="fill:rgb(225,245,238);stroke:rgb(15,110,86)"/></g>
+  <text x="52"  y="197" class="badge-green">Kernel-__LAST</text>
+  <text x="248" y="197" class="mono">0x801352000</text>
+  <text x="408" y="197" class="mono">0x801353000</text>
+  <text x="558" y="197" class="mono">0x1000</text>
+  <line x1="40" y1="214" x2="640" y2="214" class="divider" stroke-width="0.5" opacity="0.2"/>
+
+  <!-- Kernel-__LINKEDIT -->
+  <g><rect x="40" y="222" width="180" height="32" rx="4" stroke-width="0.5" style="fill:rgb(241,239,232);stroke:rgb(95,94,90)"/></g>
+  <text x="52"  y="243" class="badge-gray">Kernel-__LINKEDIT</text>
+  <text x="248" y="243" class="mono">0x801353000</text>
+  <text x="408" y="243" class="mono">0x8013aab70</text>
+  <text x="558" y="243" class="mono">0x57b70</text>
+  <line x1="40" y1="260" x2="640" y2="260" class="divider" stroke-width="0.5" opacity="0.2"/>
+
+  <!-- Kernel-__PRELINK_TEXT -->
+  <g><rect x="40" y="268" width="180" height="32" rx="4" stroke-width="0.5" style="fill:rgb(230,241,251);stroke:rgb(24,95,165)"/></g>
+  <text x="52"  y="289" class="badge-blue">Kernel-__PRELINK_TEXT</text>
+  <text x="248" y="289" class="mono">0x8013ab000</text>
+  <text x="408" y="289" class="mono">0x802121000</text>
+  <text x="558" y="289" class="mono">0xd76000</text>
+  <line x1="40" y1="306" x2="640" y2="306" class="divider" stroke-width="0.5" opacity="0.2"/>
+
+  <!-- Kernel-__PRELINK_INFO -->
+  <g><rect x="40" y="314" width="180" height="32" rx="4" stroke-width="0.5" style="fill:rgb(230,241,251);stroke:rgb(24,95,165)"/></g>
+  <text x="52"  y="335" class="badge-blue">Kernel-__PRELINK_INFO</text>
+  <text x="248" y="335" class="mono">0x802121000</text>
+  <text x="408" y="335" class="mono">0x8021a7000</text>
+  <text x="558" y="335" class="mono">0x86000</text>
+  <line x1="40" y1="352" x2="640" y2="352" class="divider" stroke-width="0.5" opacity="0.2"/>
+
+  <!-- DeviceTree -->
+  <g><rect x="40" y="360" width="180" height="32" rx="4" stroke-width="0.5" style="fill:rgb(250,238,218);stroke:rgb(133,79,11)"/></g>
+  <text x="52"  y="381" class="badge-orange">DeviceTree</text>
+  <text x="248" y="381" class="mono">0x8021a7000</text>
+  <text x="408" y="381" class="mono">0x8021ceae0</text>
+  <text x="558" y="381" class="mono">0x27ae0</text>
+
+
+  <!-- BootArgs -->
+  <g><rect x="40" y="406" width="180" height="32" rx="4" stroke-width="0.5" style="fill:rgb(250,238,218);stroke:rgb(133,79,11)"/></g>
+  <text x="52"  y="427" class="badge-orange">BootArgs</text>
+  <text x="248" y="427" class="mono">0x8021cf000</text>
+  <text x="408" y="427" class="mono">0x8021d0000</text>
+  <text x="558" y="427" class="mono">0x1000</text>
+</svg>
