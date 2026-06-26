@@ -1,10 +1,10 @@
 ---
-title: TrigonLegacy - Deterministic 7.x-9.x tfp0
+title: TrigonLegacy - Deterministic iOS 7.x-9.x tfp0
 date: 2026-06-26
 modified: 2026-06-26
 tags: [iOS, jailbreak, kernel]
 description: TrigonLegacy exploits an integer overflow in the VM layer when creating memory entries. This allows arbitrary physical memory read/write, which is then used to build a tfp0 primitive. This exploit and the techniques used are entirely deterministic.
-image: "/trigon-legacy/shell_evolution.png' | relative_url }}"
+image: /assets/img/trigon-legacy/oracle.png
 ---
 ## Table of Contents
 1. [Introduction](#introduction)
@@ -31,11 +31,11 @@ image: "/trigon-legacy/shell_evolution.png' | relative_url }}"
 [Trigon](https://github.com/alfiecg24/Trigon), the Kernel exploit by [alfiecg24](https://github.com/alfiecg24) was released **March 1st 2025**, features an interesting twist to achieving kernel read/write primitives: **it's one of the first completely deterministic XNU kernel exploits**.
 Completely by chance, **TrigonLegacy** was released **February 28th 2026**, 1 day before the 1 year anniversary of [Trigon](https://github.com/alfiecg24/Trigon)'s release.
 
-Powered by an ancient integer overflow in the VM layer, present since the early days of XNU, and exploited by [staturnzz](https://github.com/staturnzz) in [oob_entry](https://github.com/staturnzz/oob_entry) down to **iOS 3(!)**, this bug provides an excellent primitive for kernel exploitation.
+Powered by an ancient integer overflow in the VM layer, present since the early days of XNU, and exploited by [staturnz](https://github.com/staturnzz) in [oob_entry](https://github.com/staturnzz/oob_entry) down to **iOS 3(!)**, this bug provides an excellent primitive for kernel exploitation.
 
 <figure>
-<img src="{{ '/trigon-legacy/oobentry.png' | relative_url }}" alt="oob_entry">
-<figcaption>oob_entry by staturnzz running in iOS 3</figcaption>
+<img src="{{ '/assets/img/trigon-legacy/oobentry.png' | relative_url }}" alt="oob_entry">
+<figcaption>oob_entry by staturnz running in iOS 3</figcaption>
 </figure>
  
 With the bug being present in [xnu-124](https://github.com/apple-oss-distributions/xnu), the first XNU release at Apple's GitHub, this bug was introduced **before the first iOS version (iOS 1) was released**, and transcending all iOS versions up to iOS 16.5, across multiple architectures, and across hundreds of security patches and security mitigations introduced by Apple, this bug lasted at least 17 years! The bug was assigned CVE-2023-32434, and was patched in the [iOS 16.5.1 update](https://support.apple.com/en-us/103837), being actively exploited, namely in [Operation Triangulation](https://securelist.com/operation-triangulation-the-last-hardware-mystery/111669/).
@@ -63,7 +63,7 @@ This is a very simple bounds validation, which is supposed to prevent creating a
 <summary>A fun story about tunnel vision and everyone looking at the wrong buggy check for years</summary>
 Our first contact with the specifics of this bug was in December 2023, when [Kaspersky’s Global Research and Analysis Team](https://www.kaspersky.com/about/press-releases/kaspersky-discloses-iphone-hardware-feature-vital-in-operation-triangulation-case) presented [Operation Triangulation at 37c3](https://www.youtube.com/watch?v=1f6YyH62jFE&t=1086s). There they presented an unknown iOS zero-click exploitchain that relied on a hardware vulnerability. One of the key parts of the exploit chain was a kernel exploit, which later turned into the Trigon we know. Alfie later posted an [excellent writeup](https://alfiecg.uk/2025/03/01/Trigon.html#vulnerability) on the vulnerability and exploiting it, also referencing the exact same codeblock.
 <figure>
-<img src="{{ '/trigon-legacy/wrong-trigon.png' | relative_url }}" alt="wrong-trigon">
+<img src="{{ '/assets/img/trigon-legacy/wrong-trigon.png' | relative_url }}" alt="wrong-trigon">
 <figcaption>(Wrong?) Trigon at 37c3</figcaption>
 </figure>
 But the check presented above is NOT reacheable by _normal_ means.
@@ -165,7 +165,7 @@ Besides guaranteeing the memory we'll be allocating is physically contiguous and
 `vm_named_entry flags: internal=1, is_sub_map=0, is_pager=0, is_copy=0`\
 Additionally, this allows us to bypass some internal checks in XNU which would block us from mapping whatever physical pages we wanted to.
 
-Unfortunately, in iOS 7, attempting to create an **IOSurface** using `IOSurfaceCreate` in `PurpleGfxMem` doesn't work. We're in luck though, because `create_default_fb_surface` (which is where the default framebuffer surface is created) creates an IOSurface with its memory backed by `PurpleGfxMem`, so we can just snatch that! This surface has just one little difference to the one we create in iOS 8 and 9, but we'll discuss this later when finding the kernel base address. This trick was found by [staturnzz](https://github.com/staturnzz) and is used in [oob_entry](https://github.com/staturnzz/oob_entry/blob/main/src/oob_entry.c#L14-L28), from iOS 3 to iOS 7.
+Unfortunately, in iOS 7, attempting to create an **IOSurface** using `IOSurfaceCreate` in `PurpleGfxMem` doesn't work. We're in luck though, because `create_default_fb_surface` (which is where the default framebuffer surface is created) creates an IOSurface with its memory backed by `PurpleGfxMem`, so we can just snatch that! This surface has just one little difference to the one we create in iOS 8 and 9, but we'll discuss this later when finding the kernel base address. This trick was found by [staturnz](https://github.com/staturnzz) and is used in [oob_entry](https://github.com/staturnzz/oob_entry/blob/main/src/oob_entry.c#L14-L28), from iOS 3 to iOS 7.
 
 <figure markdown="1">
 ```c
@@ -179,7 +179,7 @@ IOMobileFramebufferGetLayerDefaultSurface(client, 0, &surface);
 </figure>
 
 <figure>
-<img src="{{ '/trigon-legacy/fb.png' | relative_url }}" alt="fb">
+<img src="{{ '/assets/img/trigon-legacy/fb.png' | relative_url }}" alt="fb">
 <figcaption>create_default_fb_surface in iOS 7</figcaption>
 </figure>
 
@@ -310,7 +310,7 @@ By parsing the kernel mach-o header, we learn a few things:
 After that, I dumped the memory map using pongoOS to understand the physical layout of the Kernel image and the regions that follow it:
 
 <figure>
-<img src="{{ '/trigon-legacy/memorymap-dl.svg' | relative_url }}" alt="Kernel memory layout">
+<img src="{{ '/assets/img/trigon-legacy/memorymap-dl.svg' | relative_url }}" alt="Kernel memory layout">
 <figcaption>Memory map from iOS 8.4 iPhone 6</figcaption>
 </figure>
 
@@ -388,7 +388,7 @@ if (sect && sect->addr && sect->size) {
 I completely forgot the Symbol Table is wiped on runtime, unless we specified the `keepsyms=1` bootarg. And it's obviously not there on a stock iOS device. So the next obvious step was to patchfind `kernproc`. After searching for a bit, I found this beautiful oracle. The `MOV W8, #0x1086` instruction is unique from iOS 7 throughout iOS 9 and the `LDR` instruction immediately before it contains exactly what we're looking for.
 
 <figure>
-<img src="{{ '/trigon-legacy/oracle.png' | relative_url }}" alt="_kernproc oracle">
+<img src="{{ '/assets/img/trigon-legacy/oracle.png' | relative_url }}" alt="_kernproc oracle">
 <figcaption>_kernproc oracle</figcaption>
 </figure>
 
@@ -451,7 +451,7 @@ Receiver: 0xffffff810801f200
 Self task: 0xffffff8108ca8db0
 Self proc: 0xffffff8108654040
 ```
-<img src="{{ '/trigon-legacy/ipc_port_to_proc.svg' | relative_url }}" alt="ipc_port to proc">
+<img src="{{ '/assets/img/trigon-legacy/ipc_port_to_proc.svg' | relative_url }}" alt="ipc_port to proc">
 <figcaption>Going from ipc_port to proc</figcaption>
 </figure>
 
@@ -462,7 +462,7 @@ We no longer need to patchfind `kernproc`, we can now iterate through the `proc`
 ### I am speed
 
 <figure>
-<img src="{{ '/trigon-legacy/speed.png' | relative_url }}" alt="speed">
+<img src="{{ '/assets/img/trigon-legacy/speed.png' | relative_url }}" alt="speed">
 </figure>
 
 Although the approach discussed before was faster, it's still not perfect. We still need to iterate through the `proc` linked list, which makes it not deterministic. Our primitive is also slow and it _may_ result in a spinlock panic if we read some types of kernel structures, so I've decided to pivot. 
@@ -491,7 +491,7 @@ struct pipe {
 
 We're able to turn pipes into a very strong r/w primitive, if we're able to control a pipe's `pipebuf`'s buffer address. If we point the buffer from `pipe 1` to the address of `pipe 2`, anything we write into `pipe 1` will overwrite the `pipebuf` struct of `pipe 2`! Meaning we get to control _where_ `pipe 2` reads or writes its data from/to, and _how much_ it thinks there is to read or to write in its buffer.
 
-<img src="{{ '/trigon-legacy/pipe_pipebuf_pointer_diagram.svg' | relative_url }}" alt="piperw">
+<img src="{{ '/assets/img/trigon-legacy/pipe_pipebuf_pointer_diagram.svg' | relative_url }}" alt="piperw">
 <figcaption>PipeRW visualized</figcaption>
 
 In the end, we just need to read from `pipe 1` to reset its `pipebuf` struct back to a default state and we're done. As for cleanup, all we have to do is to write the original buffer address back into the `buffer` field of the pipebuf struct of `pipe 1` (or set it to null and leak the original buffer if we're lazy).
@@ -546,7 +546,7 @@ The `itk_self` field is a raw pointer to the kernel task port ("control" port), 
 `itk_bootstrap` stands out immediately, which is a send right to the bootstrap server. Since the bootstrap server is implemented by `launchd` that means we have in our own `task` struct an easy way to get to `launchd`'s `task`. Better yet, since `launchd` is the first userspace process created by the kernel and thus pid 1, and with `kernel_task` being pid 0, they're supposed to be right next to each other in the `proc` linked list!
 
 <figure markdown="1">
-<img src="{{ '/trigon-legacy/task_to_launchd_task.svg' | relative_url }}" alt="task to launchd task">
+<img src="{{ '/assets/img/trigon-legacy/task_to_launchd_task.svg' | relative_url }}" alt="task to launchd task">
 <figcaption>Finding launchd task starting from our task</figcaption>
 </figure>
 
@@ -733,7 +733,7 @@ Time taken for tfp0: 8.539 ms
 </figure>
 </details>
 
-This writeup went through a lot, but hopefully it explained the way TrigonLegacy achieved kernel read/write and ultimately tfp0, and also gave some insight on how the iOS kernel mitigations have evolved over time.
+This writeup went through a lot, but hopefully it explained the way TrigonLegacy ultimately achieved tfp0 in a simple to understand way, and also some insight on how the iOS kernel mitigations have evolved over time.
 To wrap up, let's go through a list of what's still usable in newer iOS versions and what was patched along the way.
 
 Patched:
@@ -749,6 +749,4 @@ Still usable:
 - Finding kernel_task from itk_bootstrap (albeit under PAC)
 - Sleep token buffer base still at a fixed location for devices which use it for sleep (A8X died with iOS 15)
 
-<!-- actually write a conclusion
-write what is and isn't patched
--->
+In case you have any doubts, questions or if you simply want to chat, you can get in contact with me over [X (Twitter)](https://x.com/) at @imnotclarity or [Discord](https://discord.com/) (@notclarity). I'm also available through email at [therealclarity@protonmail.com](mailto:therealclarity@protonmail.com).
