@@ -1,0 +1,92 @@
+# Site settings
+title: TheRealClarity's blog # site title
+description: >- # site description
+  Jailbreak developer.
+lang: en-US # default lang
+timezone: Europe/London # set your timezone
+image: assets/img/avatar.jpg # This image used for Open Graph more info https://ogp.me/
+repo: https://github.com/piharpi/jekyll-klise # site repo [optional]
+mode: dark # default theme "dark" | "light"
+
+# Profile settings
+author:
+  name: Clarity # author name
+  bio: >- # tell to the world
+    Jailbreak developer.<br>
+    <br>
+    <strong>Projects</strong><br>
+    <a href="https://sep.lol" target="_blank" rel="noopener">Turdus Merula</a> - <strong>SEPROM</strong> exploit, allowing tethered and untethered iOS downgrades<br>
+    <a href="https://github.com/TheRealClarity/Trigon-Legacy" target="_blank" rel="noopener">TrigonLegacy</a> - <strong>Deterministic</strong> iOS 7-9 tfp0<br>
+    <a href="https://github.com/TheRealClarity/wtfis" target="_blank" rel="noopener">wtfis</a> - <strong>Untethered</strong> iOS 8.x 64-bit jailbreak<br>
+    and more...
+  username: Clarity # general username
+  github: TheRealClarity # github username
+  twitter: imnotclarity # twitter username
+  email: therealclarity@proton.me # email adress
+  avatar: /assets/img/avatar.jpg
+
+# URL settings
+url: "https://therealclarity.github.io"
+baseurl: "/blog"
+permalink: /:title/
+google_analytics:
+fb_appid:
+
+# Collection setting
+collections:
+  posts:
+    output: true
+
+# Markdown settings
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  syntax_highlighter: rouge
+
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: post
+      comments: false
+
+# Jekyll Compose default front matter
+jekyll_compose:
+  post_default_front_matter:
+    modified:
+    tags: []
+    description:
+  draft_default_front_matter:
+    modified:
+    tags: []
+    description:
+
+# Homepage limit posts
+number_of_posts: 5
+
+# Build settings
+# theme: klise
+sass:
+  style: compressed
+
+include:
+  - _redirects
+  - .htaccess
+
+exclude:
+  - CNAME
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
+  - CHANGELOG.md
+  - README.md
+  - node_modules
+  - klise-*.gem
+  - klise.gemspec
+
+# Plugins
+plugins:
+  # - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-postfiles
