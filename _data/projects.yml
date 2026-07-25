@@ -1,0 +1,19 @@
+- name: Turdus Merula
+  url: https://sep.lol
+  tag: SEPROM
+  description: SEPROM exploit allowing tethered and untethered iOS downgrades
+
+- name: TrigonLegacy
+  url: https://github.com/TheRealClarity/Trigon-Legacy
+  tag: Deterministic
+  description: Deterministic iOS 7–9 tfp0
+
+- name: wtfis
+  url: https://github.com/TheRealClarity/wtfis
+  tag: Untethered
+  description: Untethered iOS 8.x 64-bit jailbreak
+
+- name: ClearSword
+  url: https://github.com/TheRealClarity/ClearSword
+  tag: iOS 26
+  description: A DarkSword kernel exploit C port supporting iOS 26.0.1

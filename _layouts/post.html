@@ -87,8 +87,68 @@ layout: compress
       {% include navigation.html %}
     {% endif %}
 
-    {% include footer.html %}
+  {% include footer.html %}
   </div>
+
+  <script>
+    /* Diff-style line highlighting for code blocks inside .code-diff */
+    document.querySelectorAll('.code-diff pre code').forEach(function(codeEl) {
+      var html = codeEl.innerHTML;
+      /* Break multi-line spans into per-line spans so each line is self-contained */
+      var parts = html.split(/(<span[^>]*>|<\/span>)/);
+      var rebuilt = '';
+      var tagStack = [];
+      for (var j = 0; j < parts.length; j++) {
+        var part = parts[j];
+        if (/^<span/.test(part)) {
+          tagStack.push(part);
+          rebuilt += part;
+        } else if (part === '</span>') {
+          tagStack.pop();
+          rebuilt += part;
+        } else if (tagStack.length > 0 && part.indexOf('\n') !== -1) {
+          var textLines = part.split('\n');
+          var closeTags = '';
+          var openTags = '';
+          for (var t = tagStack.length - 1; t >= 0; t--) { closeTags += '</span>'; }
+          for (var t = 0; t < tagStack.length; t++) { openTags += tagStack[t]; }
+          rebuilt += textLines.join(closeTags + '\n' + openTags);
+        } else {
+          rebuilt += part;
+        }
+      }
+      /* Now wrap lines starting with + or - */
+      var lines = rebuilt.split('\n');
+      var result = [];
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        var tmp = document.createElement('span');
+        tmp.innerHTML = line;
+        var text = tmp.textContent;
+        if (/^\+\s/.test(text) || text === '+') {
+          result.push('<span class="line-added">' + line + '</span>');
+        } else if (/^-\s/.test(text) || text === '-') {
+          result.push('<span class="line-removed">' + line + '</span>');
+        } else {
+          result.push(line);
+        }
+      }
+      codeEl.innerHTML = result.join('\n');
+    });
+    /* Enhanced C syntax: re-classify generic .n spans using heuristics */
+    document.querySelectorAll('.language-c .highlight .n, .language-c.highlighter-rouge .highlight .n').forEach(function(el) {
+      var text = el.textContent;
+      var next = el.nextElementSibling;
+      var nextStartsWithParen = next && next.textContent && next.textContent.charAt(0) === '(';
+      if (/_t$/.test(text)) {
+        el.classList.add('nt-custom');
+      } else if (nextStartsWithParen) {
+        el.classList.add('nf');
+      } else if (/^[A-Z][A-Z0-9_]{2,}$/.test(text)) {
+        el.classList.add('nc-custom');
+      }
+    });
+  </script>
 </body>
 
 </html>

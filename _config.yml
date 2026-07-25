@@ -12,13 +12,7 @@ mode: dark # default theme "dark" | "light"
 author:
   name: Clarity # author name
   bio: >- # tell to the world
-    Jailbreak developer.<br>
-    <br>
-    <strong>Projects</strong><br>
-    <a href="https://sep.lol" target="_blank" rel="noopener">Turdus Merula</a> - <strong>SEPROM</strong> exploit, allowing tethered and untethered iOS downgrades<br>
-    <a href="https://github.com/TheRealClarity/Trigon-Legacy" target="_blank" rel="noopener">TrigonLegacy</a> - <strong>Deterministic</strong> iOS 7-9 tfp0<br>
-    <a href="https://github.com/TheRealClarity/wtfis" target="_blank" rel="noopener">wtfis</a> - <strong>Untethered</strong> iOS 8.x 64-bit jailbreak<br>
-    and more...
+    Jailbreak developer.
   username: Clarity # general username
   github: TheRealClarity # github username
   twitter: imnotclarity # twitter username

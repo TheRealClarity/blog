@@ -16,24 +16,30 @@ code {
     top: -1px;
     background-color: #f6f6f6;
     border-radius: 2px;
-    border: 1px solid rgba(128,128,128,0.1);
+    border: 1px solid rgba(128, 128, 128, 0.1);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 }
 
 // Codeblock Theme
-pre.highlight, pre {
+pre.highlight,
+pre {
   margin: 0;
+
   @include media-query($on-mobile) {
     padding-left: 20px;
   }
-  border: 1px solid rgba(128,128,128,0.1);
+
+  border: 1px solid rgba(128, 128, 128, 0.1);
   background-color: #1a1b21;
   border-radius: 2px;
   padding: 10px;
   display: block;
   overflow-x: auto;
 
-  > code {
+  >code {
     width: 100%;
     max-width: 50rem;
     margin-left: auto;
@@ -83,7 +89,7 @@ pre.highlight, pre {
 
 .highlight .o,
 .highlight .ow {
-  color: #fbf1c7;
+  color: #fe8019;
 }
 
 .highlight .p,
@@ -91,8 +97,28 @@ pre.highlight, pre {
   color: #fbf1c7;
 }
 
+.highlight .nf {
+  color: #83a598;
+}
+
+.highlight .nb {
+  color: #8ec07c;
+}
+
+.highlight .nl {
+  color: #83a598;
+}
+
+.highlight .nt-custom {
+  color: #fabd2f;
+}
+
+.highlight .nc-custom {
+  color: #d3869b;
+}
+
 .highlight .gi {
-  color: #b8bb26;
+  color: #a9dc76;
   background-color: #282828;
 }
 
@@ -181,4 +207,23 @@ pre.highlight, pre {
 
 .highlight .ss {
   color: #83a598;
+}
+
+// Diff-style line highlighting within code blocks
+.line-added {
+  display: inline-block;
+  width: 100%;
+  background-color: rgba(169, 220, 118, 0.1);
+  border-left: 3px solid #a9dc76;
+  margin-left: -10px;
+  padding-left: 7px;
+}
+
+.line-removed {
+  display: inline-block;
+  width: 100%;
+  background-color: rgba(251, 73, 52, 0.1);
+  border-left: 3px solid #fb4934;
+  margin-left: -10px;
+  padding-left: 7px;
 }

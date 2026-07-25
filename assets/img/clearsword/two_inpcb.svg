@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="500" viewBox="0 0 1100 500">
+  <defs>
+    <marker id="blueArrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#1f5fbf"/>
+    </marker>
+    <marker id="redArrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#b42318"/>
+    </marker>
+    <style>
+      .box { fill:#ffffff; stroke:#222222; stroke-width:2.2; }
+      .next { fill:#e8f1ff; stroke:#1f5fbf; stroke-width:2; }
+      .prev { fill:#fff0ee; stroke:#b42318; stroke-width:2; }
+      .label { font:700 20px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; fill:#111111; }
+      .text { font:500 17px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; fill:#222222; }
+      .small { font:500 15px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; fill:#333333; }
+
+      @media (prefers-color-scheme: dark) {
+        .box  { fill:#1e1e24; stroke:#aaaaaa; }
+        .next { fill:#1a2a44; stroke:#6a9fd8; }
+        .prev { fill:#3a1a1a; stroke:#d97878; }
+        .label { fill:#e8e8e8; }
+        .text  { fill:#cccccc; }
+        .small { fill:#bbbbbb; }
+      }
+    </style>
+  </defs>
+
+
+
+  <g transform="translate(90,110)">
+    <rect width="360" height="240" class="box"/>
+    <text x="28" y="42" class="label">newer inpcb A</text>
+
+    <rect x="28" y="82" width="304" height="54" class="next"/>
+    <text x="44" y="115" class="text">inp_list.le_next = B</text>
+
+    <rect x="28" y="158" width="304" height="54" class="prev"/>
+    <text x="44" y="191" class="text">inp_list.le_prev</text>
+  </g>
+
+  <g transform="translate(650,110)">
+    <rect width="360" height="240" class="box"/>
+    <text x="28" y="42" class="label">older inpcb B</text>
+
+    <rect x="28" y="82" width="304" height="54" class="next"/>
+    <text x="44" y="115" class="text">inp_list.le_next = C</text>
+
+    <rect x="28" y="158" width="304" height="54" class="prev"/>
+    <text x="44" y="181" class="small">inp_list.le_prev =</text>
+    <text x="44" y="202" class="small">&amp;A-&gt;inp_list.le_next</text>
+  </g>
+
+  <path d="M422 219 C500 219, 570 219, 650 219"
+        fill="none" stroke="#1f5fbf" stroke-width="4" marker-end="url(#blueArrow)"/>
+
+  <path d="M678 295 C590 420, 470 420, 298 246"
+        fill="none" stroke="#b42318" stroke-width="4" marker-end="url(#redArrow)"/>
+</svg>

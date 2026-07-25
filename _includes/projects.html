@@ -1,0 +1,11 @@
+<div class="projects">
+  <p class="projects-heading">Projects</p>
+  <div class="projects-grid">
+    {%- for project in site.data.projects -%}
+    <a class="project-card" href="{{ project.url }}" target="_blank" rel="noopener">
+      <span class="project-name">{{ project.name }}</span>
+      <span class="project-desc">{{ project.description }}</span>
+    </a>
+    {%- endfor -%}
+  </div>
+</div>
